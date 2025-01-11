@@ -5,9 +5,9 @@ import { calculateHedgingV2, getCalculatedStrikes } from "@/lib/dgHedgingHelper"
 import { DexGexType, MiniOptionContract } from "@/lib/types";
 import { FormControl, InputLabel, Select, MenuItem, Box, Tab, Tabs, Paper, Container, Typography } from "@mui/material";
 import dayjs from "dayjs";
-import { useRouter } from "next/navigation";
 import { parseAsInteger, parseAsString, parseAsStringEnum, useQueryState } from "nuqs";
 import { useMemo } from "react";
+import { UpdateFrequencyDisclaimer } from "./UpdateFrequencyDisclaimer";
 
 
 const dteOptions = [30,
@@ -23,8 +23,7 @@ const stikeOptions = [20,
     100, 150,
     200]
 
-
-export const C = (props: { symbol: string, cachedDates: string[], dte: number, sc: number, dataMode: string, data: MiniOptionContract[], price: number, tab: DexGexType }) => {
+export const OptionsAnalysisComponent = (props: { symbol: string, cachedDates: string[], dte: number, sc: number, dataMode: string, data: MiniOptionContract[], price: number, tab: DexGexType }) => {
     const { cachedDates, data, symbol, price, sc } = props;
     const [dte, setDte] = useQueryState('dte', parseAsInteger.withDefault(props.dte));
     const [strikeCounts, setStrikesCount] = useQueryState('sc', parseAsInteger.withDefault(props.sc));
@@ -80,9 +79,7 @@ export const C = (props: { symbol: string, cachedDates: string[], dte: number, s
                 <Expo data={exposureData} exposure={typeMap[gexTab]} symbol={props.symbol} dte={dte} skipAnimation={false} />
             </Box>
         </Paper>
-        <Box textAlign="right">
-            <Typography variant="caption" fontStyle={ "italic" }>Click <a href="https://github.com/mnsrulz/mytradingview#data-update-frequencies">here</a> to know more about when this data updates</Typography>
-        </Box>
+        <UpdateFrequencyDisclaimer />
         {/* <Paper sx={{ p: 0 }}> */}
 
         {/* <FormControl sx={{ m: 1, minWidth: 120 }} size="small">

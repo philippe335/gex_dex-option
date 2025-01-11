@@ -94,6 +94,9 @@ export type SearchTickerResult = { items: SearchTickerItem[] };
 export type SearchTickerItem = { symbol: string, name: string }
 export type AddTickerToMyListResult = { success: boolean }
 
+export type MicroOptionContractItem = { oi: number, volume: number, delta: number, gamma: number }
+export type MicroOptionContract = { call: MicroOptionContractItem, put: MicroOptionContractItem }
+
 
 type HistoricalDataItem = {
   date: string;
@@ -165,3 +168,11 @@ export enum DexGexType {
   'OI' = 'OI',
   'VOLUME' = 'VOLUME'
 }
+
+export enum DataModeType {
+  'CBOE' = 'CBOE', 
+  'TRADIER' = 'TRADIER', 
+  'HISTORICAL' = 'HISTORICAL'
+}
+
+export type ExposureDataRequest = { data: Record<string, Record<string, MicroOptionContract>>, spotPrice: number, spotDate: string }
